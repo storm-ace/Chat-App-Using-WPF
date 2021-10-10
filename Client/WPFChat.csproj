@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\paper-plane.png" />
+    <None Remove="Icons\phone-call.png" />
+    <None Remove="Icons\plus.png" />
+    <None Remove="Icons\profile-placeholder.png" />
+    <None Remove="Icons\video-camera.png" />
+    <None Remove="README.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="README.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\phone-call.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\paper-plane.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\plus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Icons\profile-placeholder.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Icons\video-camera.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MVVM\Core\" />
+    <Folder Include="MVVM\View\" />
+  </ItemGroup>
+
+</Project>
