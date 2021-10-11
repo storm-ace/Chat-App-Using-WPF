@@ -3,4 +3,4 @@
 
 A chat application using WPF C# and a C# backend server using mongoDB as database.
 
-![App Photo](https://imgur.com/AVrAqkA)
+![App Photo](https://i.imgur.com/AVrAqkA.png)
