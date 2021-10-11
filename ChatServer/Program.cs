@@ -14,17 +14,18 @@ namespace ChatServer
 
         static void Main(string[] args)
         {
+            Console.Title = "Setting everything up...";
             _users = new List<Client>();
             _tcpListener = new TcpListener(IPAddress.Parse("127.0.0.1"), 8080);
             _tcpListener.Start();
 
             while (true)
             {
+                Console.Title = $"Server active | {_users.Count} online...";
                 var client = new Client(_tcpListener.AcceptTcpClient());
                 _users.Add(client);
 
                 BroadCastConnection();
-                Console.Title = $"Server active | {_users.Count} online...";
             }
         }
 

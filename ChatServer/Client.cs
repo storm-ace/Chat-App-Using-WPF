@@ -33,19 +33,24 @@ namespace ChatServer
 
             Console.WriteLine($"[{DateTime.Now}]: Client has connected with the username: {Username}");
 
-            Task.Run(() => Process(token));
+            Task.Run(() => Process(/*token*/));
         }
 
-        void Process(CancellationToken token)
+        void Process(/*CancellationToken token*/)
         {
             var opcode = _packetReader.ReadByte();
-            switch (opcode)
+            System.Diagnostics.Debug.WriteLine(opcode);
+
+            while (true)
             {
-                case 5:
-                    var msg = _packetReader.ReadMessage();
-                    Console.WriteLine($"[{DateTime.Now}]: Message received! {msg}");
-                    Program.BroadCastMessage($"[{DateTime.Now}]: [{Username}]: {msg}");
-                    break;
+                switch (opcode)
+                {
+                    case 5:
+                        var msg = _packetReader.ReadMessage();
+                        Console.WriteLine($"[{DateTime.Now}]: Message received! {msg}");
+                        Program.BroadCastMessage($"[{DateTime.Now}]: [{Username}]: {msg}");
+                        break;
+                }
             }
         }
     }
