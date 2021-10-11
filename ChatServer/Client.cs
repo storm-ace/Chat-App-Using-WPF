@@ -16,8 +16,7 @@ namespace ChatServer
         public TcpClient ClientSocket;
 
         PacketReader _packetReader;
-
-        private CancellationTokenSource tokenSource = null;
+        Thread processThread;
 
         public Client(TcpClient client)
         {
@@ -25,31 +24,39 @@ namespace ChatServer
             UID = Guid.NewGuid();
             _packetReader = new PacketReader(ClientSocket.GetStream());
 
-            tokenSource = new CancellationTokenSource();
-            var token = tokenSource.Token;
-
             var opcode = _packetReader.ReadByte();
             Username = _packetReader.ReadMessage();
 
             Console.WriteLine($"[{DateTime.Now}]: Client has connected with the username: {Username}");
 
-            Task.Run(() => Process(/*token*/));
+            processThread = new Thread(new ThreadStart(Process));
+            processThread.Start();
         }
 
-        void Process(/*CancellationToken token*/)
+        void Process()
         {
-            var opcode = _packetReader.ReadByte();
-            System.Diagnostics.Debug.WriteLine(opcode);
+            bool alive = true;
 
-            while (true)
+            while (alive)
             {
-                switch (opcode)
+                try
                 {
-                    case 5:
-                        var msg = _packetReader.ReadMessage();
-                        Console.WriteLine($"[{DateTime.Now}]: Message received! {msg}");
-                        Program.BroadCastMessage($"[{DateTime.Now}]: [{Username}]: {msg}");
-                        break;
+                    var opcode = _packetReader.ReadByte();
+                    System.Diagnostics.Debug.WriteLine(opcode);
+
+                    switch (opcode)
+                    {
+                        case 5:
+                            var msg = _packetReader.ReadMessage();
+                            Console.WriteLine($"[{DateTime.Now}]: Message received! {msg}");
+                            Program.BroadCastMessage($"[{DateTime.Now}]: [{Username}]: {msg}");
+                            break;
+                    }
+                }
+                catch (Exception)
+                {
+                    Program.BroadCastDisconnect(UID);
+                    alive = false;
                 }
             }
         }

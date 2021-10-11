@@ -55,20 +55,21 @@ namespace ChatServer
             }
         }
 
-        public static void BroadCastDisconnect(string uid)
+        public static void BroadCastDisconnect(Guid uid)
         {
-            Client disconnectedUser = _users.Where(x => x.UID.ToString() == uid).FirstOrDefault();
+            Client disconnectedUser = _users.Where(x => x.UID == uid).FirstOrDefault();
             _users.Remove(disconnectedUser);
 
             foreach (Client user in _users)
             {
                 PacketBuilder broadcastPacket = new PacketBuilder();
                 broadcastPacket.WriteOpCode(10);
-                broadcastPacket.WriteMessage(uid);
+                broadcastPacket.WriteMessage(uid.ToString());
                 user.ClientSocket.Client.Send(broadcastPacket.GetPacketBytes());
             }
 
-            BroadCastMessage($"[{disconnectedUser}] Disconnected!");
+            Console.WriteLine($"[{disconnectedUser.Username}] Disconnected!");
+            Console.Title = $"Server active | {_users.Count} online...";
         }
     }
 }

@@ -37,9 +37,8 @@ namespace RandomNameGen
         /// Initialises a new instance of the RandomName class.
         /// </summary>
         /// <param name="rand">A Random that is used to pick names</param>
-        public RandomName(Random rand)
+        public RandomName()
         {
-            this.rand = rand;
             NameList l = new NameList();
 
             JsonSerializer serializer = new JsonSerializer();
@@ -53,6 +52,8 @@ namespace RandomNameGen
             Male = new List<string>(l.boys);
             Female = new List<string>(l.girls);
             Last = new List<string>(l.last);
+
+            this.rand = new Random();
         }
 
         /// <summary>

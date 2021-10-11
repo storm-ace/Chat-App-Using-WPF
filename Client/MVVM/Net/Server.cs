@@ -19,7 +19,7 @@ namespace WPFChat.MVVM.Net
         public Server()
         {
             _client = new TcpClient();
-            ConnectToServer($"User: {DateTime.Now}");
+            ConnectToServer(new RandomName().Generate(Sex.Male));
         }
 
         public void ConnectToServer(string username)
