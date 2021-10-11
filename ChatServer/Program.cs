@@ -24,6 +24,7 @@ namespace ChatServer
                 _users.Add(client);
 
                 BroadCastConnection();
+                Console.Title = $"Server active | {_users.Count} online...";
             }
         }
 
@@ -66,7 +67,7 @@ namespace ChatServer
                 user.ClientSocket.Client.Send(broadcastPacket.GetPacketBytes());
             }
 
-            BroadCastMessage($"[{disconnectedUser.Username}] Disconnected!");
+            BroadCastMessage($"[{disconnectedUser}] Disconnected!");
         }
     }
 }

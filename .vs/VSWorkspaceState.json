@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Client",
+    "\\Client\\Core",
+    "\\Client\\Core\\RandomName"
+  ],
+  "SelectedNode": "\\Client\\Core\\RandomName\\RandomName.cs",
+  "PreviewInSolutionExplorer": false
+}

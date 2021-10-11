@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RandomNameGen;
+using System;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using WPFChat.MVVM.Net.IO;
@@ -18,7 +19,7 @@ namespace WPFChat.MVVM.Net
         public Server()
         {
             _client = new TcpClient();
-            ConnectToServer(new Random().NextDouble().ToString());
+            ConnectToServer($"User: {DateTime.Now}");
         }
 
         public void ConnectToServer(string username)

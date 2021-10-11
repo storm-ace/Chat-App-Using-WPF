@@ -79,7 +79,7 @@ namespace WPFChat.MVVM.ViewModel
             Messages = new ObservableCollection<MessageModel>();
             Users = new ObservableCollection<UserModel>();
 
-            SendCommand = new RelayCommand(o => _server.SendMessageToServer(Message), o => !string.IsNullOrEmpty(Message));
+            SendCommand = new RelayCommand(o => SendMessage(Message), o => !string.IsNullOrEmpty(Message));
 
             //Contacts.Add(new UserModel
             //{
@@ -88,6 +88,12 @@ namespace WPFChat.MVVM.ViewModel
             //    ImageSource = "/Icons/profile-placeholder.png",
             //    Messages = Messages
             //});
+        }
+
+        private void SendMessage(string message)
+        {
+            Message = string.Empty;
+            _server.SendMessageToServer(message);
         }
 
         private void RemoveUser()
@@ -101,7 +107,7 @@ namespace WPFChat.MVVM.ViewModel
         {
             var msg = _server.packetReader.ReadMessage();
 
-            Application.Current.Dispatcher.Invoke(() => Messages.Add(AddNewMessage()));
+            Application.Current.Dispatcher.Invoke(() => Messages.Add(AddNewMessage(msg)));
         }
 
         private void UserConnected()
@@ -120,14 +126,14 @@ namespace WPFChat.MVVM.ViewModel
             }
         }
 
-        private MessageModel AddNewMessage()
+        private MessageModel AddNewMessage(string message)
         {
             return new MessageModel
             {
                 Username = username,
                 UsernameColor = "#409aff",
                 ImageSource = "/Icons/profile-placeholder.png",
-                Message = Message,
+                Message = message.Substring(message.LastIndexOf(':') + 1),
                 Time = DateTime.Now,
                 IsNativeOrigin = true,
                 FirstMessage = true

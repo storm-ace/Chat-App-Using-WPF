@@ -38,8 +38,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Core\RandomName\" />
     <Folder Include="MVVM\Core\" />
     <Folder Include="MVVM\View\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
 </Project>
