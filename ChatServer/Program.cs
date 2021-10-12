@@ -44,13 +44,15 @@ namespace ChatServer
             }
         }
 
-        public static void BroadCastMessage(string message)
+        public static void BroadCastChatMessage(string message, string time, string username)
         {
             foreach (var user in _users)
             {
                 var msgPacket = new PacketBuilder();
                 msgPacket.WriteOpCode(5);
                 msgPacket.WriteMessage(message);
+                msgPacket.WriteMessage(time);
+                msgPacket.WriteMessage(username);
                 user.ClientSocket.Client.Send(msgPacket.GetPacketBytes());
             }
         }

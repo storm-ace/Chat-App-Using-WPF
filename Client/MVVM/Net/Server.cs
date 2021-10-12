@@ -72,7 +72,6 @@ namespace WPFChat.MVVM.Net
             messagePacket.WriteOpCode(5);
             messagePacket.WriteMessage(message);
             _client.Client.Send(messagePacket.GetPacketBytes());
-            System.Diagnostics.Debug.WriteLine($"Send message: {message}");
         }
     }
 }

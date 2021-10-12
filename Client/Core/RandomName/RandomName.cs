@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using Newtonsoft.Json;
+using System.Reflection;
+using WPFChat.Properties;
 
 namespace RandomNameGen
 {
@@ -42,7 +44,6 @@ namespace RandomNameGen
             NameList l = new NameList();
 
             JsonSerializer serializer = new JsonSerializer();
-
             using (StreamReader reader = new StreamReader("names.json"))
             using (JsonReader jreader = new JsonTextReader(reader))
             {

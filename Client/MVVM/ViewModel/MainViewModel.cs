@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,8 +107,10 @@ namespace WPFChat.MVVM.ViewModel
         private void MessageReceived()
         {
             var msg = _server.packetReader.ReadMessage();
+            var dateTime = _server.packetReader.ReadMessage();
+            var username = _server.packetReader.ReadMessage();
 
-            Application.Current.Dispatcher.Invoke(() => Messages.Add(AddNewMessage(msg)));
+            Application.Current.Dispatcher.Invoke(() => Messages.Add(AddNewMessage(msg, dateTime, username)));
         }
 
         private void UserConnected()
@@ -126,15 +129,15 @@ namespace WPFChat.MVVM.ViewModel
             }
         }
 
-        private MessageModel AddNewMessage(string message)
+        private MessageModel AddNewMessage(string message, string dateTime, string username)
         {
             return new MessageModel
             {
                 Username = username,
                 UsernameColor = "#409aff",
                 ImageSource = "/Icons/profile-placeholder.png",
-                Message = message.Substring(message.LastIndexOf(':') + 1),
-                Time = DateTime.Now,
+                Message = message,
+                Time = DateTime.Parse(dateTime, CultureInfo.InvariantCulture),
                 IsNativeOrigin = true,
                 FirstMessage = true
             };
