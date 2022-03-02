@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="Core\RandomName\names.json" />
+    <None Remove="Data\Names.json" />
     <None Remove="Icons\paper-plane.png" />
     <None Remove="Icons\phone-call.png" />
     <None Remove="Icons\plus.png" />
@@ -21,6 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Data\Names.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\phone-call.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -30,9 +34,6 @@
     <Content Include="Icons\plus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="names.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Icons\profile-placeholder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

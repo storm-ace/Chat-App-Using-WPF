@@ -44,7 +44,11 @@ namespace RandomNameGen
             NameList l = new NameList();
 
             JsonSerializer serializer = new JsonSerializer();
-            using (StreamReader reader = new StreamReader("names.json"))
+
+            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Data\Names.json");
+            string[] files = File.ReadAllLines(path);
+
+            using (StreamReader reader = new StreamReader(path))
             using (JsonReader jreader = new JsonTextReader(reader))
             {
                 l = serializer.Deserialize<NameList>(jreader);
